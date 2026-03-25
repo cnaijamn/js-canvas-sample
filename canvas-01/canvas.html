@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Canvas tutorial</title>
+    <script type="text/javascript" src="./canvas.js"></script>
+    <script type="text/javascript">
+      function draw() {
+        drawRect('rect');
+        drawPath('path');
+        drawArc('arc');
+        drawColor('color');
+        drawRandomLine('line');
+        drawAnim1('anim1');
+        drawAnim2('anim2');
+        drawAnim3('anim3');
+      }
+    </script>
+    <style type="text/css">
+      canvas { border: 1px solid #999; }
+    </style>
+  </head>
+  <body onload="draw();">
+    <canvas id="rect" width="400" height="300"></canvas>
+    <canvas id="path" width="400" height="300"></canvas>
+    <canvas id="arc" width="400" height="300"></canvas>
+    <canvas id="color" width="400" height="300"></canvas>
+    <canvas id="line" width="400" height="300"></canvas>
+    <canvas id="anim1" width="400" height="300"></canvas>
+    <canvas id="anim2" width="400" height="300"></canvas>
+    <canvas id="anim3" width="400" height="300"></canvas>
+    <div id="output"></div>
+  </body>
+</html>

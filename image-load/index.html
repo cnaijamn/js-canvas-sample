@@ -1,0 +1,27 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Canvas tutorial</title>
+<script type="text/javascript">
+function draw() {
+  var canvas = document.getElementById("canvas");
+  if (canvas.getContext) {
+    var ctx = canvas.getContext('2d'),
+        img = new Image();
+
+    // 512x512画像
+    // IEではキャッシュされ、再表示のときにimg.onloadが走らないため、
+    // 末尾にユニークな値(現在時刻)を付加しておく
+    img.src = './lenna.png?' + new Date().getTime();
+    img.onload = function() {
+      // 画像ロード後に描画
+      ctx.drawImage(img, 0, 0);
+    }
+  }
+}
+</script>
+</head>
+<body onload="draw();">
+<canvas id="canvas" width="200" height="200"></canvas>
+</body>
+</html>

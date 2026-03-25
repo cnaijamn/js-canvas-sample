@@ -1,0 +1,87 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Canvas tutorial</title>
+<script type="text/javascript">
+function draw() {
+  var ctx;
+  var width, height;
+  var xStep, yStep;
+  var DEVIDE = 20;
+  var x1, x2, y1, y2;
+  var Phase = { left: 0, bottom: 1, right: 2, top: 3 };
+  var phase = Phase.left;
+
+  var canvas = document.getElementById("canvas");
+  if (canvas.getContext) {
+    ctx = canvas.getContext("2d");
+    width = canvas.width;
+    height = canvas.height;
+    xStep = Math.floor(width / DEVIDE);
+    yStep = Math.floor(height / DEVIDE);
+
+    // Clear
+    ctx.fillStyle = "rgba(8, 8, 12, 1.0)";
+    ctx.fillRect(0, 0, width, height);
+
+    x1 = 0; y1 = 0;
+    x2 = 0; y2 = height - 1;
+
+    setInterval(proc, 50);
+  }
+
+  function proc() {
+    ctx.globalCompositeOperation = "source-over";
+    ctx.fillStyle = "rgba(8, 8, 12, .05)";
+    ctx.fillRect(0, 0, width, height);
+    ctx.globalCompositeOperation = "lighter";
+
+    ctx.beginPath();
+    ctx.strokeStyle = '#00FF00';
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.closePath();
+    ctx.stroke();
+
+    switch (phase) {
+    case Phase.left:
+      x2 += xStep; y1 += yStep;
+      if (x2 >= width || y2 >= height) {
+        x1 = 0; y1 = height - 1;
+        x2 = width - 1; y2 = height - 1;
+        phase = Phase.bottom;
+      }
+      break;
+    case Phase.bottom:
+      x1 += xStep; y2 -= yStep;
+      if (x1 >= width || y2 < 0) {
+        x1 = width - 1; y1 = height - 1;
+        x2 = width - 1; y2 = 0;
+        phase = Phase.right;
+      }
+      break;
+    case Phase.right:
+      x2 -= xStep; y1 -= yStep;
+      if (x2 < 0 || y1 < 0) {
+        x1 = width - 1; y1 = 0;
+        x2 = 0; y2 = 0;
+        phase = Phase.top;
+      }
+      break;
+    case Phase.top:
+      x1 -= xStep; y2 += yStep;
+      if (x1 < 0 || y2 >= height) {
+        x1 = 0; y1 = 0;
+        x2 = 0; y2 = height - 1;
+        phase = Phase.left;
+      }
+      break;
+    }
+  }
+}
+</script>
+</head>
+<body onload="draw();">
+<canvas id="canvas" width="640" height="640"></canvas>
+</body>
+</html>
